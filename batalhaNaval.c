@@ -1,48 +1,60 @@
 #include <stdio.h>
 
 int main() {
-    // Tabuleiro 10x10: linhas 0 a 9, colunas A a J
-    int tabuleiro[10][10];
+    int cone[3][5] = {0};
+    int cruz[3][5] = {0};
+    int octaedro[3][5] = {0};
 
-    // Inicializa com água (0)
-    for (int i = 0; i < 10; i++) {
-        for (int j = 0; j < 10; j++) {
-            tabuleiro[i][j] = 0;
+    // Preenchendo padrão Cone
+    for (int i = 0; i < 3; i++) {
+        for (int j = 2 - i; j <= 2 + i; j++) {
+            cone[i][j] = 1;
         }
     }
 
-    // Navio vertical: começa em linha 2, coluna C (índice 2, 2), tamanho 3
+    // Preenchendo padrão Cruz
     for (int i = 0; i < 3; i++) {
-        tabuleiro[2 + i][2] = 3;
+        for (int j = 0; j < 5; j++) {
+            if (i == 1 || j == 2) {
+                cruz[i][j] = 1;
+            }
+        }
     }
 
-    // Navio horizontal: começa em linha 6, coluna B (índice 6, 1), tamanho 3
+    // Preenchendo padrão Octaedro
     for (int i = 0; i < 3; i++) {
-        tabuleiro[6][1 + i] = 3;
+        int centro = 2;
+        int alcance = i == 1 ? 1 : 0;
+        for (int j = centro - alcance; j <= centro + alcance; j++) {
+            octaedro[i][j] = 1;
+        }
     }
 
-    // Navio diagonal 1: começa em linha 0, coluna 0, tamanho 3 (↘)
+    // Exibindo matriz Cone
+    printf("Habilidade: Cone\n");
     for (int i = 0; i < 3; i++) {
-        tabuleiro[0 + i][0 + i] = 3;
-    }
-
-    // Navio diagonal 2: começa em linha 3, coluna 6, tamanho 3 (↙)
-    for (int i = 0; i < 3; i++) {
-        tabuleiro[3 + i][6 - i] = 3;
-    }
-
-    // Imprime cabeçalho das colunas com letras
-    printf("   ");
-    for (char letra = 'A'; letra <= 'J'; letra++) {
-        printf("%c ", letra);
+        for (int j = 0; j < 5; j++) {
+            printf("%d ", cone[i][j]);
+        }
+        printf("\n");
     }
     printf("\n");
 
-    // Imprime linhas com números de 0 a 9
-    for (int i = 0; i < 10; i++) {
-        printf("%2d ", i);
-        for (int j = 0; j < 10; j++) {
-            printf("%d ", tabuleiro[i][j]);
+    // Exibindo matriz Cruz
+    printf("Habilidade: Cruz\n");
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 5; j++) {
+            printf("%d ", cruz[i][j]);
+        }
+        printf("\n");
+    }
+    printf("\n");
+
+    // Exibindo matriz Octaedro
+    printf("Habilidade: Octaedro\n");
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 5; j++) {
+            printf("%d ", octaedro[i][j]);
         }
         printf("\n");
     }
